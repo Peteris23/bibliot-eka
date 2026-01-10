@@ -94,12 +94,19 @@
         // Load all books
         async function loadBooks() {
             try {
-                const [booksResponse, loansResponse] = await Promise.all([
-                    fetch(`${API_BASE}/books`),
-                    fetch(`${API_BASE}/loans/user-loans`)
-                ]);
+                const booksResponse = await fetch(`${API_BASE}/books`, { credentials: 'same-origin' });
                 const books = await booksResponse.json();
-                const loans = await loansResponse.json();
+
+                let loans = [];
+                try {
+                    const loansResponse = await fetch(`${API_BASE}/loans/my-loans`, { credentials: 'same-origin' });
+                    if (loansResponse.ok) {
+                        loans = await loansResponse.json();
+                    }
+                } catch (loansError) {
+                    console.warn('Could not load user loans:', loansError);
+                }
+
                 displayBooks(books, loans);
             } catch (error) {
                 console.error('Error loading books:', error);
@@ -215,7 +222,7 @@
             try {
                 const [booksResponse, loansResponse] = await Promise.all([
                     fetch(`${API_BASE}/books/search?q=${encodeURIComponent(query)}&type=${type}`),
-                    fetch(`${API_BASE}/loans/user-loans`)
+                    fetch(`${API_BASE}/loans/my-loans`)
                 ]);
                 const books = await booksResponse.json();
                 const loans = await loansResponse.json();
@@ -279,7 +286,7 @@
         async function returnBook(bookId) {
             try {
                 // First get the user's loans to find the loan ID for this book
-                const loansResponse = await fetch(`${API_BASE}/loans/user-loans`);
+                const loansResponse = await fetch(`${API_BASE}/loans/my-loans`);
                 const loans = await loansResponse.json();
 
                 const loan = loans.find(l => l.book_id === bookId && !l.return_date);

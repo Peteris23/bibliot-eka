@@ -19,7 +19,7 @@ Route::apiResource('books', BookController::class);
 Route::get('books/search', [BookController::class, 'search']);
 
 // Loan routes (protected)
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('web')->group(function () {
     Route::post('loans/loan', [LoanController::class, 'loanBook']);
     Route::post('loans/return', [LoanController::class, 'returnBook']);
     Route::get('loans/my-loans', [LoanController::class, 'getUserLoans']);
