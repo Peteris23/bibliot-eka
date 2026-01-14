@@ -15,8 +15,14 @@ Route::post('/login', [AuthController::class, 'apiLogin']);
 Route::post('/register', [AuthController::class, 'apiRegister']);
 
 // Book routes
-Route::apiResource('books', BookController::class);
-Route::get('books/search', [BookController::class, 'search']);
+Route::middleware('web')->group(function () {
+    Route::get('books', [BookController::class, 'index']);
+    Route::post('books', [BookController::class, 'store']);
+    Route::get('books/search', [BookController::class, 'search']);
+    Route::get('books/{isbn}', [BookController::class, 'show']);
+    Route::put('books/{isbn}', [BookController::class, 'update']);
+    Route::delete('books/{isbn}', [BookController::class, 'destroy']);
+});
 
 // Loan routes (protected)
 Route::middleware('web')->group(function () {

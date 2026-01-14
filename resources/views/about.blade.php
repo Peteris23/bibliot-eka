@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Biblioteka - Your Digital Library</title>
+    <title>About Us - Biblioteka</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
@@ -39,61 +39,57 @@
     <!-- Hero Section -->
     <section class="bg-gradient-to-b from-purple-900 to-black py-12">
         <div class="max-w-3xl mx-auto px-4 text-center">
-            <h1 class="text-3xl md:text-4xl font-bold mb-3 text-white">Welcome to Biblioteka</h1>
+            <h1 class="text-3xl md:text-4xl font-bold mb-3 text-white">About Biblioteka</h1>
             <p class="text-base md:text-lg text-gray-300">Your Digital Library Experience</p>
         </div>
     </section>
 
-    <!-- What We Do Section -->
+    <!-- About Section -->
     <section class="py-8 bg-gray-900">
         <div class="max-w-2xl mx-auto px-4">
-            <h2 class="text-2xl font-bold mb-2 text-center text-purple-400">What We Do</h2>
+            <h2 class="text-2xl font-bold mb-2 text-center text-purple-400">Who We Are</h2>
             <p class="text-center text-gray-500 text-xs mb-6">Your premier digital library platform</p>
             <div class="grid grid-cols-1 gap-4">
                 <div class="bg-gray-800 p-4 rounded-lg border border-gray-800">
-                    <h3 class="text-sm font-semibold text-purple-400 mb-1">📚 Browse & Discover</h3>
-                    <p class="text-gray-400 text-xs">Explore our extensive catalog with search and filtering.</p>
+                    <h3 class="text-sm font-semibold text-purple-400 mb-1">📚 Vast Collection</h3>
+                    <p class="text-gray-400 text-xs">Thousands of books across all genres and categories at your fingertips.</p>
                 </div>
                 <div class="bg-gray-800 p-4 rounded-lg border border-gray-800">
-                    <h3 class="text-sm font-semibold text-purple-400 mb-1">🔒 Secure Purchases</h3>
-                    <p class="text-gray-400 text-xs">Buy books with confidence using secure payment.</p>
+                    <h3 class="text-sm font-semibold text-purple-400 mb-1">⚡ Fast Search</h3>
+                    <p class="text-gray-400 text-xs">Find books instantly with our powerful search engine and filters.</p>
                 </div>
                 <div class="bg-gray-800 p-4 rounded-lg border border-gray-800">
-                    <h3 class="text-sm font-semibold text-purple-400 mb-1">📖 Build Your Library</h3>
-                    <p class="text-gray-400 text-xs">Create and manage your personal book collection.</p>
+                    <h3 class="text-sm font-semibold text-purple-400 mb-1">✅ Easy Management</h3>
+                    <p class="text-gray-400 text-xs">Borrow and track loans with our user-friendly interface.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Privacy Policy Section -->
+    <!-- Contact Section -->
     <section class="py-8 bg-black">
         <div class="max-w-2xl mx-auto px-4">
-            <h2 class="text-2xl font-bold mb-2 text-center text-purple-400">Privacy Policy</h2>
-            <p class="text-center text-gray-500 text-xs mb-6">Your privacy matters to us</p>
+            <h2 class="text-2xl font-bold mb-2 text-center text-purple-400">Contact Us</h2>
+            <p class="text-center text-gray-500 text-xs mb-6">Have questions? We'd love to hear from you</p>
             <div class="grid grid-cols-1 gap-4">
                 <div class="bg-gray-900 p-4 rounded-lg border border-gray-800">
-                    <h3 class="text-sm font-semibold text-purple-400 mb-1">📋 Information We Collect</h3>
-                    <p class="text-gray-400 text-xs">Name, email, payment info, browsing activity, and book preferences.</p>
+                    <h3 class="text-sm font-semibold text-purple-400 mb-1">📧 Email</h3>
+                    <p class="text-gray-400 text-xs">support@biblioteka.com</p>
                 </div>
                 <div class="bg-gray-900 p-4 rounded-lg border border-gray-800">
-                    <h3 class="text-sm font-semibold text-purple-400 mb-1">⚙️ How We Use It</h3>
-                    <p class="text-gray-400 text-xs">Process transactions, maintain accounts, send updates, and recommendations.</p>
+                    <h3 class="text-sm font-semibold text-purple-400 mb-1">📞 Phone</h3>
+                    <p class="text-gray-400 text-xs">+1 (555) 123-4567</p>
                 </div>
                 <div class="bg-gray-900 p-4 rounded-lg border border-gray-800">
-                    <h3 class="text-sm font-semibold text-purple-400 mb-1">🔐 Security</h3>
-                    <p class="text-gray-400 text-xs">Industry-standard encryption. Payment data is securely processed.</p>
+                    <h3 class="text-sm font-semibold text-purple-400 mb-1">📍 Address</h3>
+                    <p class="text-gray-400 text-xs">123 Library Street, Book City, BC 12345</p>
                 </div>
                 <div class="bg-gray-900 p-4 rounded-lg border border-gray-800">
-                    <h3 class="text-sm font-semibold text-purple-400 mb-1">🤝 Sharing</h3>
-                    <p class="text-gray-400 text-xs">We don't sell your data. Only shared with trusted providers.</p>
-                </div>
-                <div class="bg-gray-900 p-4 rounded-lg border border-gray-800">
-                    <h3 class="text-sm font-semibold text-purple-400 mb-1">✅ Your Rights</h3>
-                    <p class="text-gray-400 text-xs">Access, update, or delete your data anytime via About Us.</p>
+                    <h3 class="text-sm font-semibold text-purple-400 mb-1">🕐 Hours</h3>
+                    <p class="text-gray-400 text-xs">Monday - Friday: 9:00 AM - 6:00 PM</p>
                 </div>
             </div>
-            <p class="text-xs text-gray-600 mt-6 text-center">Last Updated: January 13, 2026</p>
+            <p class="text-xs text-gray-600 mt-6 text-center">We typically respond within 24 hours</p>
         </div>
     </section>
 

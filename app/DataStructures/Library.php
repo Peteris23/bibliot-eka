@@ -70,6 +70,24 @@ class Library
     }
 
     /**
+     * Search for books by genre (case-insensitive partial match).
+     * Time complexity: O(n) where n is the number of books.
+     *
+     * @return Book[]
+     */
+    public function searchBooksByGenre(string $genre): array
+    {
+        $results = [];
+        $genre = strtolower($genre);
+        foreach ($this->books as $book) {
+            if ($book->genre && str_contains(strtolower($book->genre), $genre)) {
+                $results[] = $book;
+            }
+        }
+        return $results;
+    }
+
+    /**
      * Delete a book by ISBN.
      * Time complexity: O(1) average case.
      */
@@ -119,5 +137,22 @@ class Library
     {
         // This would be implemented to save to Eloquent models
         // For now, it's a placeholder
+    }
+
+    /**
+     * Search books by query across title, author, and genre.
+     */
+    public function searchBooks(string $query): array
+    {
+        $results = [];
+        $query = strtolower($query);
+        foreach ($this->books as $book) {
+            if (str_contains(strtolower($book->title), $query) ||
+                str_contains(strtolower($book->author), $query) ||
+                str_contains(strtolower($book->genre ?? ''), $query)) {
+                $results[] = $book;
+            }
+        }
+        return $results;
     }
 }

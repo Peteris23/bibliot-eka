@@ -15,10 +15,11 @@ class Book
     public int $year;
     public ?string $description;
     public bool $available;
-    public ?string $genre;
-    public ?string $image;
+    public ?string $publisher;
+    public ?int $pages;
+    public string $language;
 
-    public function __construct(?int $id, string $title, string $author, string $isbn, int $year, ?string $description = null, bool $available = true, ?string $genre = null, ?string $image = null)
+    public function __construct(?int $id, string $title, string $author, string $isbn, int $year, ?string $description = null, bool $available = true, ?string $genre = null, ?string $image = null, ?string $publisher = null, ?int $pages = null, string $language = 'English')
     {
         $this->id = $id ?? 0;
         $this->title = $title;
@@ -29,6 +30,9 @@ class Book
         $this->available = $available;
         $this->genre = $genre;
         $this->image = $image;
+        $this->publisher = $publisher;
+        $this->pages = $pages;
+        $this->language = $language;
     }
 
     /**

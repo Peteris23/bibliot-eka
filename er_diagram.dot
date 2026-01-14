@@ -1,0 +1,70 @@
+digraph ER {
+    rankdir=LR;
+    node [shape=box, style=filled, fillcolor=lightblue, fontname="Arial", fontsize=10];
+    edge [fontname="Arial", fontsize=9];
+    
+    // Entity: USER
+    USER [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+            <TR><TD BGCOLOR="darkblue"><FONT COLOR="white"><B>USER</B></FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><U>PK: id</U></TD></TR>
+            <TR><TD ALIGN="LEFT">name</TD></TR>
+            <TR><TD ALIGN="LEFT">email</TD></TR>
+            <TR><TD ALIGN="LEFT">password</TD></TR>
+            <TR><TD ALIGN="LEFT">role</TD></TR>
+            <TR><TD ALIGN="LEFT">created_at</TD></TR>
+            <TR><TD ALIGN="LEFT">updated_at</TD></TR>
+        </TABLE>
+    >, shape=plaintext];
+    
+    // Entity: BOOK
+    BOOK [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+            <TR><TD BGCOLOR="darkgreen"><FONT COLOR="white"><B>BOOK</B></FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><U>PK: id</U></TD></TR>
+            <TR><TD ALIGN="LEFT">title</TD></TR>
+            <TR><TD ALIGN="LEFT">author</TD></TR>
+            <TR><TD ALIGN="LEFT">isbn</TD></TR>
+            <TR><TD ALIGN="LEFT">genre</TD></TR>
+            <TR><TD ALIGN="LEFT">image</TD></TR>
+            <TR><TD ALIGN="LEFT">created_at</TD></TR>
+            <TR><TD ALIGN="LEFT">updated_at</TD></TR>
+        </TABLE>
+    >, shape=plaintext];
+    
+    // Entity: LOAN
+    LOAN [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+            <TR><TD BGCOLOR="darkred"><FONT COLOR="white"><B>LOAN</B></FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><U>PK: id</U></TD></TR>
+            <TR><TD ALIGN="LEFT"><I>FK: user_id</I></TD></TR>
+            <TR><TD ALIGN="LEFT"><I>FK: book_id</I></TD></TR>
+            <TR><TD ALIGN="LEFT">borrowed_at</TD></TR>
+            <TR><TD ALIGN="LEFT">due_date</TD></TR>
+            <TR><TD ALIGN="LEFT">returned_at</TD></TR>
+            <TR><TD ALIGN="LEFT">created_at</TD></TR>
+            <TR><TD ALIGN="LEFT">updated_at</TD></TR>
+        </TABLE>
+    >, shape=plaintext];
+    
+    // Relationships
+    USER -> LOAN [label="1  has many  N", headlabel="N", taillabel="1", arrowhead=crow, color=blue, penwidth=2];
+    BOOK -> LOAN [label="1  borrowed in  N", headlabel="N", taillabel="1", arrowhead=crow, color=green, penwidth=2];
+    
+    // Legend
+    legend [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+            <TR><TD BGCOLOR="gray"><FONT COLOR="white"><B>Legend</B></FONT></TD></TR>
+            <TR><TD ALIGN="LEFT">PK = Primary Key</TD></TR>
+            <TR><TD ALIGN="LEFT">FK = Foreign Key</TD></TR>
+            <TR><TD ALIGN="LEFT">1:N = One-to-Many</TD></TR>
+            <TR><TD ALIGN="LEFT">M:N via LOAN table</TD></TR>
+        </TABLE>
+    >, shape=plaintext, fillcolor=lightyellow];
+    
+    // Add title
+    labelloc="t";
+    label="Bibliotēkas Grāmatu Pārvaldības Sistēma\nEntity-Relationship Diagram";
+    fontsize=16;
+    fontname="Arial Bold";
+}

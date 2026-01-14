@@ -35,7 +35,10 @@ class BookController extends Controller
                 $book->description,
                 $book->available,
                 $book->genre,
-                $book->image
+                $book->image,
+                $book->publisher,
+                $book->pages,
+                $book->language
             );
             $this->library->addBook($dataBook);
         }
@@ -51,9 +54,17 @@ class BookController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('books.create');
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): JsonResponse
+    public function store(Request $request)
     {
         $request->validate([
             'title' => 'required|string|max:255',
@@ -62,6 +73,9 @@ class BookController extends Controller
             'year' => 'required|integer|min:1000|max:' . (date('Y') + 1),
             'description' => 'nullable|string',
             'genre' => 'nullable|string|max:255',
+            'publisher' => 'nullable|string|max:255',
+            'pages' => 'nullable|integer|min:1',
+            'language' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -72,7 +86,13 @@ class BookController extends Controller
         }
 
         // Persist to database
-        $dbBook = Book::create($request->only(['title', 'author', 'isbn', 'year', 'description', 'available', 'genre']) + ['image' => $imagePath, 'available' => true]);
+        $data = $request->only(['title', 'author', 'isbn', 'year', 'description', 'genre', 'publisher', 'pages', 'language']);
+        $data = array_filter($data, function($value) {
+            return $value !== null && $value !== '';
+        });
+        $data['image'] = $imagePath;
+        $data['available'] = true;
+        $dbBook = Book::create($data);
 
         // Create in-memory book with the database ID
         $book = new DataBook(
@@ -81,16 +101,19 @@ class BookController extends Controller
             $request->author,
             $request->isbn,
             $request->year,
-            $request->description,
+            $request->description ?: null,
             true, // available
-            $request->genre,
-            $imagePath
+            $request->genre ?: null,
+            $imagePath,
+            $request->publisher ?: null,
+            $request->pages ? (int)$request->pages : null,
+            $request->language ?: 'English'
         );
 
         // Add to in-memory structure
         $this->library->addBook($book);
 
-        return response()->json($book, 201);
+        return redirect()->back()->with('success', 'Book added successfully!');
     }
 
     /**
@@ -108,23 +131,16 @@ class BookController extends Controller
     /**
      * Search books by title or author.
      */
-    public function search(Request $request): JsonResponse
+    public function search(Request $request)
     {
-        $query = $request->get('q');
-        $type = $request->get('type', 'title'); // 'title' or 'author'
-
-        if (!$query) {
-            return response()->json(['message' => 'Search query is required'], 400);
-        }
-
-        $results = [];
-        if ($type === 'author') {
-            $results = $this->library->searchBooksByAuthor($query);
+        $query = $request->input('q', '');
+        if ($query) {
+            $books = $this->library->searchBooks($query);
         } else {
-            $results = $this->library->searchBooksByTitle($query);
+            $books = array_values($this->library->getAllBooks());
         }
 
-        return response()->json($results);
+        return response()->json($books);
     }
 
     /**

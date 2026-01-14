@@ -16,6 +16,9 @@ class Book extends Model
         'available',
         'genre',
         'image',
+        'publisher',
+        'pages',
+        'language',
     ];
 
     public function loans(): HasMany

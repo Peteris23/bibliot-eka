@@ -9,18 +9,28 @@
 </head>
 <body class="bg-gray-100 min-h-screen">
     <div class="container mx-auto px-4 py-8">
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="text-3xl font-bold">Library Management System</h1>
-            <form method="POST" action="{{ route('logout') }}" class="inline">
-                @csrf
-                <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
-                    Logout
-                </button>
-            </form>
-        </div>
+        <!-- Navigation Bar -->
+        <nav class="bg-white shadow-md rounded-lg p-4 mb-8">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold">Library Management System</h1>
+                <div class="flex space-x-4 items-center">
+                    <a href="{{ route('library') }}" class="text-blue-600 hover:text-blue-800 font-semibold">Home</a>
+                    <a href="{{ route('books.create') }}" class="text-blue-600 hover:text-blue-800">Create Books</a>
+                    <a href="#search" class="text-blue-600 hover:text-blue-800">Search</a>
+                    <a href="{{ route('contacts') }}" class="text-blue-600 hover:text-blue-800">Contacts</a>
+                    <form method="POST" action="{{ route('logout') }}" class="inline">
+                        @csrf
+                        <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+                            Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </nav>
 
         <!-- Add Book Form -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+        @if(auth()->user()->isAdmin())
+        <div id="add-book" class="bg-white rounded-lg shadow-md p-6 mb-8">
             <h2 class="text-xl font-semibold mb-4">Add New Book</h2>
             <form id="addBookForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -41,7 +51,20 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Genre</label>
-                    <input type="text" id="genre" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    <select id="genre" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <option value="">Select a genre</option>
+                        <option value="Fiction">Fiction</option>
+                        <option value="Non-Fiction">Non-Fiction</option>
+                        <option value="Mystery">Mystery</option>
+                        <option value="Romance">Romance</option>
+                        <option value="Science Fiction">Science Fiction</option>
+                        <option value="Fantasy">Fantasy</option>
+                        <option value="Biography">Biography</option>
+                        <option value="History">History</option>
+                        <option value="Self-Help">Self-Help</option>
+                        <option value="Children's">Children's</option>
+                        <option value="Other">Other</option>
+                    </select>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Image</label>
@@ -58,15 +81,17 @@
                 </div>
             </form>
         </div>
+        @endif
 
         <!-- Search Books -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+        <div id="search" class="bg-white rounded-lg shadow-md p-6 mb-8">
             <h2 class="text-xl font-semibold mb-4">Search Books</h2>
             <div class="flex gap-4 mb-4">
-                <input type="text" id="searchQuery" placeholder="Search by title or author..." class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                <input type="text" id="searchQuery" placeholder="Search by title, author, or genre..." class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                 <select id="searchType" class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                     <option value="title">Title</option>
                     <option value="author">Author</option>
+                    <option value="genre">Genre</option>
                 </select>
                 <button id="searchBtn" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
                     Search
@@ -90,6 +115,7 @@
 
     <script>
         const API_BASE = '/api';
+        const IS_ADMIN = {{ auth()->user()->isAdmin() ? 'true' : 'false' }};
 
         // Load all books
         async function loadBooks() {
@@ -127,7 +153,7 @@
             books.forEach(book => {
                 const bookElement = document.createElement('div');
                 bookElement.className = 'bg-white rounded-lg shadow-md p-4 inline-block m-2 w-64';
-                const imageUrl = book.image ? `/storage/${book.image}` : '/images/default-book.png';
+                const imageUrl = book.image ? `/storage/${book.image}` : 'https://via.placeholder.com/150x200?text=No+Image';
 
                 // Check if user has this book loaned
                 const userLoan = userLoans.find(loan => loan.book_id === book.id && !loan.return_date);
@@ -153,7 +179,7 @@
                 }
 
                 bookElement.innerHTML = `
-                    <img src="${imageUrl}" alt="${book.title}" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.src='/images/default-book.png'">
+                    <img src="${imageUrl}" alt="${book.title}" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.src='https://via.placeholder.com/150x200?text=No+Image'">
                     <h3 class="text-lg font-semibold mb-2">${book.title}</h3>
                     <p class="text-gray-600 mb-1">by ${book.author}</p>
                     ${book.genre ? `<p class="text-sm text-blue-600 mb-1">Genre: ${book.genre}</p>` : ''}
@@ -164,9 +190,9 @@
                     </p>
                     <div class="flex gap-2 mb-2">
                         ${actionButton}
-                        <button onclick="deleteBook('${book.isbn}')" class="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700 ${actionButton ? 'flex-1' : 'w-full'}">
+                        ${IS_ADMIN ? `<button onclick="deleteBook('${book.isbn}')" class="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700 ${actionButton ? 'flex-1' : 'w-full'}">
                             Delete
-                        </button>
+                        </button>` : ''}
                     </div>
                 `;
                 booksList.appendChild(bookElement);
@@ -178,6 +204,7 @@
             e.preventDefault();
 
             const formData = new FormData();
+            formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
             formData.append('title', document.getElementById('title').value);
             formData.append('author', document.getElementById('author').value);
             formData.append('isbn', document.getElementById('isbn').value);
@@ -192,7 +219,8 @@
             try {
                 const response = await fetch(`${API_BASE}/books`, {
                     method: 'POST',
-                    body: formData
+                    body: formData,
+                    credentials: 'same-origin'
                 });
 
                 if (response.ok) {
@@ -241,7 +269,11 @@
 
             try {
                 const response = await fetch(`${API_BASE}/books/${isbn}`, {
-                    method: 'DELETE'
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    credentials: 'same-origin'
                 });
 
                 if (response.ok) {
