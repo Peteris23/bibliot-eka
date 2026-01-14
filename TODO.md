@@ -1,0 +1,3 @@
+- [x] Modify loadBooks function to fetch user loans and pass to displayBooks
+- [x] Update displayBooks function to accept userLoans parameter
+- [x] Update display logic in displayBooks to show "Loaned by you" if user has it loaned, with Return button; else "Not Available" without Return button for loaned books
