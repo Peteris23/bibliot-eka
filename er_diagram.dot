@@ -1,59 +1,63 @@
 digraph ER {
-    rankdir=LR;
-    node [shape=box, fontname="Arial", fontsize=10];
-    edge [fontname="Arial", fontsize=9];
+    rankdir=TB;
+    bgcolor="#f8f9fa";
+    node [shape=box, fontname="Helvetica", fontsize=11, style="rounded,filled", fillcolor="#ffffff"];
+    edge [fontname="Helvetica", fontsize=10, color="#495057", penwidth=1.5];
     
     // Entity: USER
     USER [label=<
-        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
-            <TR><TD><B>USER</B></TD></TR>
-            <TR><TD ALIGN="LEFT"><U>PK: id</U></TD></TR>
-            <TR><TD ALIGN="LEFT">name</TD></TR>
-            <TR><TD ALIGN="LEFT">email</TD></TR>
-            <TR><TD ALIGN="LEFT">password</TD></TR>
-            <TR><TD ALIGN="LEFT">role</TD></TR>
-            <TR><TD ALIGN="LEFT">created_at</TD></TR>
-            <TR><TD ALIGN="LEFT">updated_at</TD></TR>
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#e7f5ff">
+            <TR><TD BGCOLOR="#339af0" COLSPAN="1"><FONT COLOR="white"><B>👤 USER</B></FONT></TD></TR>
+            <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff"><B><U>🔑 id</U></B> (PK)</TD></TR>
+            <TR><TD ALIGN="LEFT">📝 name</TD></TR>
+            <TR><TD ALIGN="LEFT">📧 email (UNIQUE)</TD></TR>
+            <TR><TD ALIGN="LEFT">🔒 password</TD></TR>
+            <TR><TD ALIGN="LEFT">👔 role (ENUM)</TD></TR>
+            <TR><TD ALIGN="LEFT">📅 created_at</TD></TR>
+            <TR><TD ALIGN="LEFT">🔄 updated_at</TD></TR>
         </TABLE>
     >, shape=plaintext];
     
     // Entity: BOOK
     BOOK [label=<
-        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
-            <TR><TD><B>BOOK</B></TD></TR>
-            <TR><TD ALIGN="LEFT"><U>PK: id</U></TD></TR>
-            <TR><TD ALIGN="LEFT">title</TD></TR>
-            <TR><TD ALIGN="LEFT">author</TD></TR>
-            <TR><TD ALIGN="LEFT">isbn</TD></TR>
-            <TR><TD ALIGN="LEFT">genre</TD></TR>
-            <TR><TD ALIGN="LEFT">image</TD></TR>
-            <TR><TD ALIGN="LEFT">created_at</TD></TR>
-            <TR><TD ALIGN="LEFT">updated_at</TD></TR>
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fff3bf">
+            <TR><TD BGCOLOR="#fcc419" COLSPAN="1"><FONT COLOR="white"><B>📚 BOOK</B></FONT></TD></TR>
+            <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff"><B><U>🔑 id</U></B> (PK)</TD></TR>
+            <TR><TD ALIGN="LEFT">📖 title</TD></TR>
+            <TR><TD ALIGN="LEFT">✍️ author</TD></TR>
+            <TR><TD ALIGN="LEFT">🔢 isbn (UNIQUE, INDEX)</TD></TR>
+            <TR><TD ALIGN="LEFT">🎭 genre</TD></TR>
+            <TR><TD ALIGN="LEFT">🖼️ image</TD></TR>
+            <TR><TD ALIGN="LEFT">📅 created_at</TD></TR>
+            <TR><TD ALIGN="LEFT">🔄 updated_at</TD></TR>
         </TABLE>
     >, shape=plaintext];
     
     // Entity: LOAN
     LOAN [label=<
-        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
-            <TR><TD><B>LOAN</B></TD></TR>
-            <TR><TD ALIGN="LEFT"><U>PK: id</U></TD></TR>
-            <TR><TD ALIGN="LEFT"><I>FK: user_id</I></TD></TR>
-            <TR><TD ALIGN="LEFT"><I>FK: book_id</I></TD></TR>
-            <TR><TD ALIGN="LEFT">borrowed_at</TD></TR>
-            <TR><TD ALIGN="LEFT">due_date</TD></TR>
-            <TR><TD ALIGN="LEFT">returned_at</TD></TR>
-            <TR><TD ALIGN="LEFT">created_at</TD></TR>
-            <TR><TD ALIGN="LEFT">updated_at</TD></TR>
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#d0ebff">
+            <TR><TD BGCOLOR="#4dabf7" COLSPAN="1"><FONT COLOR="white"><B>📋 LOAN</B></FONT></TD></TR>
+            <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff"><B><U>🔑 id</U></B> (PK)</TD></TR>
+            <TR><TD ALIGN="LEFT"><B>🔗 user_id</B> (FK → USER)</TD></TR>
+            <TR><TD ALIGN="LEFT"><B>🔗 book_id</B> (FK → BOOK)</TD></TR>
+            <TR><TD ALIGN="LEFT">📆 borrowed_at</TD></TR>
+            <TR><TD ALIGN="LEFT">⏰ due_date</TD></TR>
+            <TR><TD ALIGN="LEFT">✅ returned_at</TD></TR>
+            <TR><TD ALIGN="LEFT">📅 created_at</TD></TR>
+            <TR><TD ALIGN="LEFT">🔄 updated_at</TD></TR>
         </TABLE>
     >, shape=plaintext];
     
-    // Relationships
-    USER -> LOAN [headlabel="N", taillabel="1", arrowhead=crow, penwidth=2];
-    BOOK -> LOAN [headlabel="N", taillabel="1", arrowhead=crow, penwidth=2];
+    // Relationships with labels
+    USER -> LOAN [label="  izņem  ", headlabel="  N  ", taillabel="  1  ", arrowhead=crow, color="#339af0", penwidth=2];
+    BOOK -> LOAN [label="  ir izņemta  ", headlabel="  N  ", taillabel="  1  ", arrowhead=crow, color="#fcc419", penwidth=2];
     
-    // Add title
+    // Title with better formatting
     labelloc="t";
-    label="Bibliotēkas Grāmatu Pārvaldības Sistēma\nEntity-Relationship Diagram";
-    fontsize=16;
-    fontname="Arial Bold";
+    label=<
+        <TABLE BORDER="0">
+            <TR><TD><FONT POINT-SIZE="18" COLOR="#212529"><B>📊 Bibliotēkas Pārvaldības Sistēma</B></FONT></TD></TR>
+            <TR><TD><FONT POINT-SIZE="12" COLOR="#495057">Entity-Relationship Diagram</FONT></TD></TR>
+        </TABLE>
+    >;
 }

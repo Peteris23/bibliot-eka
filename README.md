@@ -31,6 +31,21 @@ Pilnīga tehniskā dokumentācija ar visiem risinājumiem un analīzi.
 
 ---
 
+## Entity-Relationship Diagramma
+
+![ER Diagram](er_diagram.png)
+
+Diagramma attēlo trīs galvenās entītijas:
+- **USER** - sistēmas lietotāji ar lomām (administrator, bibliotekārs, lietotājs)
+- **BOOK** - grāmatu kolekcija ar ISBN indeksēšanu
+- **LOAN** - aizņēmumu uzskaite ar foreign key constraints
+
+**Relācijas:**
+- USER → LOAN (1:N) - viens lietotājs var izņemt vairākas grāmatas
+- BOOK → LOAN (1:N) - viena grāmata var būt izņemta vairākas reizes (dažādos laikos)
+
+---
+
 ## Projekta Kopsavilkums
 
 ### Galvenās Iezīmes
