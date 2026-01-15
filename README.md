@@ -141,13 +141,13 @@ bibliot-eka/
 
 ## Veiktspējas Metriki
 
-| Operācija | Laiks | Kompleksitāte |
-|-----------|-------|---------------|
-| ISBN meklēšana | 0.001 ms | O(1) |
-| Grāmatas pievienošana | 0.02 ms | O(1) |
-| Grāmatas dzēšana | 0.001 ms | O(1) |
-| Meklēšana pēc nosaukuma | 12 ms (10K) | O(n) |
-| Datubāzes query (ar indeksu) | < 1 ms | O(log n) |
+| Operācija | Laiks |
+|-----------|-------|
+| ISBN meklēšana | 0.001 ms |
+| Grāmatas pievienošana | 0.02 ms |
+| Grāmatas dzēšana | 0.001 ms |
+| Meklēšana pēc nosaukuma | 12 ms (10K) |
+| Datubāzes query (ar indeksu) | < 1 ms |
 
 **Atmiņas izmantošana:**
 - 10,000 grāmatas: ~5.2 MB
