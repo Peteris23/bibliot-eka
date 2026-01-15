@@ -68,29 +68,109 @@ Diagramma attēlo trīs galvenās entītijas:
 
 ---
 
-## Ātrā Uzstādīšana
+## Uzstādīšanas Instrukcija
+
+### Prasības
+
+Pirms sākšanas pārliecinies, ka tava sistēmā ir instalēti:
+- **PHP** 8.2 vai jaunāks
+- **Composer** (PHP dependency manager)
+- **Node.js** 18+ un npm
+- **MySQL** 8.0+ vai MariaDB 10.5+
+- **Git**
+
+### 1. Klonē Repository
 
 ```bash
-# 1. Instalē atkarības
+git clone https://github.com/Peteris23/bibliot-eka.git
+cd bibliot-eka
+```
+
+### 2. Instalē PHP Dependencies
+
+```bash
 composer install
+```
+
+Šī komanda instalēs visas nepieciešamās Laravel un PHP bibliotēkas no `composer.json` faila.
+
+### 3. Instalē Node.js Dependencies
+
+```bash
 npm install
+```
 
-# 2. Konfigurē vidi
+Instalē frontend dependencies (Tailwind CSS, Vite, u.c.).
+
+### 4. Konfigurē Vidi
+
+```bash
+# Izveido .env failu no parauga
 cp .env.example .env
+
+# Ģenerē aplikācijas šifrēšanas atslēgu
 php artisan key:generate
+```
 
-# 3. Izveido datubāzi (rediģē .env vispirms)
-mysql -u root -p -e "CREATE DATABASE biblioteka;"
+### 5. Datubāzes Konfigurācija
+
+Rediģē `.env` failu un iestatīt datubāzes parametrus:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=biblioteka
+DB_USERNAME=root
+DB_PASSWORD=tava_parole
+```
+
+Izveido datubāzi:
+
+```bash
+mysql -u root -p -e "CREATE DATABASE biblioteka CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+```
+
+### 6. Palaiž Migrācijas
+
+```bash
 php artisan migrate
+```
 
-# 4. Build assets
+Šī komanda izveidos visas nepieciešamās tabulas datubāzē.
+
+### 7. Kompilē Frontend Assets
+
+```bash
+# Priekš production
 npm run build
 
-# 5. Palaiž serveri
+# VAI priekš development ar hot reload
+npm run dev
+```
+
+### 8. Palaiž Aplikāciju
+
+```bash
 php artisan serve
 ```
 
-**Aplikācija:** http://localhost:8000
+Aplikācija tagad ir pieejama: **http://localhost:8000**
+
+### Papildus Komandas
+
+```bash
+# Notīrīt cache
+php artisan cache:clear
+php artisan config:clear
+php artisan view:clear
+
+# Seed datubāzi ar test datiem (ja nepieciešams)
+php artisan db:seed
+
+# Palaiž testus
+php artisan test
+```
 
 ---
 
