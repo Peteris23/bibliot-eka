@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="lv">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Add New Book - Biblioteka</title>
+    <title>Pievienot Jaunu Grāmatu - Biblioteka</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
@@ -12,7 +12,7 @@
 </head>
 <body class="bg-black text-white font-sans">
     <div class="max-w-4xl mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold mb-6 text-purple-400">Add New Book</h1>
+        <h1 class="text-3xl font-bold mb-6 text-purple-400">Pievienot Jaunu Grāmatu</h1>
 
         @if(session('success'))
             <div class="bg-green-800 border border-green-500 text-green-200 px-4 py-3 rounded mb-4">
@@ -35,12 +35,12 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="mb-4">
-                    <label for="title" class="block mb-2 text-purple-400">Title *</label>
+                    <label for="title" class="block mb-2 text-purple-400">Nosaukums *</label>
                     <input type="text" id="title" name="title" value="{{ old('title') }}" required class="w-full px-3 py-2 bg-gray-800 border border-purple-500 text-white rounded focus:outline-none focus:ring-2 focus:ring-purple-500">
                 </div>
 
                 <div class="mb-4">
-                    <label for="author" class="block mb-2 text-purple-400">Author *</label>
+                    <label for="author" class="block mb-2 text-purple-400">Autors *</label>
                     <input type="text" id="author" name="author" value="{{ old('author') }}" required class="w-full px-3 py-2 bg-gray-800 border border-purple-500 text-white rounded focus:outline-none focus:ring-2 focus:ring-purple-500">
                 </div>
 
@@ -50,44 +50,44 @@
                 </div>
 
                 <div class="mb-4">
-                    <label for="year" class="block mb-2 text-purple-400">Year *</label>
+                    <label for="year" class="block mb-2 text-purple-400">Gads *</label>
                     <input type="number" id="year" name="year" value="{{ old('year') }}" required class="w-full px-3 py-2 bg-gray-800 border border-purple-500 text-white rounded focus:outline-none focus:ring-2 focus:ring-purple-500">
                 </div>
 
                 <div class="mb-4">
-                    <label for="genre" class="block mb-2 text-purple-400">Genre</label>
+                    <label for="genre" class="block mb-2 text-purple-400">Žanrs</label>
                     <input type="text" id="genre" name="genre" value="{{ old('genre') }}" class="w-full px-3 py-2 bg-gray-800 border border-purple-500 text-white rounded focus:outline-none focus:ring-2 focus:ring-purple-500">
                 </div>
 
                 <div class="mb-4">
-                    <label for="publisher" class="block mb-2 text-purple-400">Publisher</label>
+                    <label for="publisher" class="block mb-2 text-purple-400">Izdevnīca</label>
                     <input type="text" id="publisher" name="publisher" value="{{ old('publisher') }}" class="w-full px-3 py-2 bg-gray-800 border border-purple-500 text-white rounded focus:outline-none focus:ring-2 focus:ring-purple-500">
                 </div>
 
                 <div class="mb-4">
-                    <label for="pages" class="block mb-2 text-purple-400">Pages</label>
+                    <label for="pages" class="block mb-2 text-purple-400">Lappuses</label>
                     <input type="number" id="pages" name="pages" value="{{ old('pages') }}" class="w-full px-3 py-2 bg-gray-800 border border-purple-500 text-white rounded focus:outline-none focus:ring-2 focus:ring-purple-500">
                 </div>
 
                 <div class="mb-4">
-                    <label for="language" class="block mb-2 text-purple-400">Language</label>
-                    <input type="text" id="language" name="language" value="{{ old('language', 'English') }}" class="w-full px-3 py-2 bg-gray-800 border border-purple-500 text-white rounded focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <label for="language" class="block mb-2 text-purple-400">Valoda</label>
+                    <input type="text" id="language" name="language" value="{{ old('language', 'Latviešu') }}" class="w-full px-3 py-2 bg-gray-800 border border-purple-500 text-white rounded focus:outline-none focus:ring-2 focus:ring-purple-500">
                 </div>
             </div>
 
             <div class="mb-4">
-                <label for="description" class="block mb-2 text-purple-400">Description</label>
+                <label for="description" class="block mb-2 text-purple-400">Apraksts</label>
                 <textarea id="description" name="description" rows="4" class="w-full px-3 py-2 bg-gray-800 border border-purple-500 text-white rounded focus:outline-none focus:ring-2 focus:ring-purple-500">{{ old('description') }}</textarea>
             </div>
 
             <div class="mb-4">
-                <label for="image" class="block mb-2 text-purple-400">Book Cover Image</label>
+                <label for="image" class="block mb-2 text-purple-400">Grāmatas Vāka Attēls</label>
                 <input type="file" id="image" name="image" accept="image/*" class="w-full px-3 py-2 bg-gray-800 border border-purple-500 text-white rounded focus:outline-none focus:ring-2 focus:ring-purple-500">
             </div>
 
             <div class="flex gap-4">
-                <button type="submit" class="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Add Book</button>
-                <a href="{{ url('/') }}" class="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700">Cancel</a>
+                <button type="submit" class="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Pievienot Grāmatu</button>
+                <a href="{{ url('/') }}" class="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700">Atcelt</a>
             </div>
         </form>
     </div>
