@@ -16,12 +16,17 @@ Route::post('/register', [AuthController::class, 'apiRegister']);
 
 // Book routes
 Route::middleware('web')->group(function () {
+    // Public routes
     Route::get('books', [BookController::class, 'index']);
-    Route::post('books', [BookController::class, 'store']);
     Route::get('books/search', [BookController::class, 'search']);
     Route::get('books/{isbn}', [BookController::class, 'show']);
-    Route::put('books/{isbn}', [BookController::class, 'update']);
-    Route::delete('books/{isbn}', [BookController::class, 'destroy']);
+    
+    // Admin only routes
+    Route::middleware(['auth', 'admin'])->group(function () {
+        Route::post('books', [BookController::class, 'store']);
+        Route::put('books/{isbn}', [BookController::class, 'update']);
+        Route::delete('books/{isbn}', [BookController::class, 'destroy']);
+    });
 });
 
 // Loan routes (protected)

@@ -35,8 +35,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
-// Protected routes
-Route::middleware(['auth'])->group(function () {
+// Protected routes - Admin only
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
     Route::post('/books', [BookController::class, 'store'])->name('books.store');
     Route::delete('/books/{book}', [BookController::class, 'destroy'])->name('books.destroy');
