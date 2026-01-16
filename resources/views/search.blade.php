@@ -102,12 +102,23 @@
                     bookCard.className = 'bg-gray-800 rounded-lg p-4 border border-purple-500';
                     const imageUrl = book.image ? `/storage/${book.image}` : 'https://via.placeholder.com/150x200?text=Nav+Attela';
                     
+                    const isAuthenticated = {{ auth()->check() ? 'true' : 'false' }};
+                    
                     bookCard.innerHTML = `
                         <img src="${imageUrl}" alt="${book.title}" class="w-full h-48 object-cover rounded-md mb-3" onerror="this.src='https://via.placeholder.com/150x200?text=Nav+Attela'">
                         <h3 class="text-lg font-bold text-purple-400 mb-1">${book.title}</h3>
                         <p class="text-sm text-gray-300 mb-1">Autors: ${book.author}</p>
                         ${book.genre ? `<p class="text-xs text-purple-300 mb-1">Žanrs: ${book.genre}</p>` : ''}
-                        <p class="text-xs text-gray-400">ISBN: ${book.isbn} | Gads: ${book.year}</p>
+                        <p class="text-xs text-gray-400 mb-2">ISBN: ${book.isbn} | Gads: ${book.year}</p>
+                        ${isAuthenticated ? `
+                            <button onclick="loanBook('${book.isbn}')" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-2 px-4 rounded-lg transition-all transform hover:scale-105 text-sm">
+                                📚 Aizņemties
+                            </button>
+                        ` : `
+                            <a href="/login" class="block w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition-all text-center text-sm">
+                                🔒 Ieiet, lai aizņemtos
+                            </a>
+                        `}
                     `;
                     container.appendChild(bookCard);
                 });

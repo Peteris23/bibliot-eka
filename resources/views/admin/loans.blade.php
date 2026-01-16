@@ -6,9 +6,9 @@
     <title>{{ __('Admin Panel') }} - {{ __('Loans Management') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 min-h-screen text-white">
+<body class="bg-black min-h-screen text-white">
     <!-- Navigation -->
-    <nav class="bg-black/30 backdrop-blur-lg border-b border-white/10 sticky top-0 z-50">
+    <nav class="bg-black border-b border-purple-500 sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
                 <a href="{{ url('/') }}" class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent hover:from-purple-300 hover:to-pink-300 transition-all">
@@ -55,10 +55,10 @@
             @endif
 
             <!-- Loans Table -->
-            <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 overflow-hidden">
+            <div class="bg-gray-900 rounded-2xl border border-gray-800 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full">
-                        <thead class="bg-white/5">
+                        <thead class="bg-gray-800">
                             <tr>
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-purple-300">{{ __('Book') }}</th>
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-purple-300">{{ __('Borrower') }}</th>
@@ -68,9 +68,9 @@
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-purple-300">{{ __('Status') }}</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-white/5">
+                        <tbody class="divide-y divide-gray-800">
                             @forelse($loans as $loan)
-                                <tr class="hover:bg-white/5 transition-colors">
+                                <tr class="hover:bg-gray-800 transition-colors">
                                     <td class="px-6 py-4">
                                         <div class="flex items-center gap-3">
                                             @if($loan->book->image)
@@ -142,15 +142,15 @@
 
             <!-- Statistics -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-                <div class="bg-purple-500/20 backdrop-blur-lg rounded-xl border border-purple-500/30 p-6">
+                <div class="bg-gray-900 rounded-xl border border-purple-500 p-6">
                     <div class="text-3xl font-bold">{{ $loans->whereNull('returned_at')->count() }}</div>
                     <div class="text-gray-300 mt-2">{{ __('Active Loans') }}</div>
                 </div>
-                <div class="bg-green-500/20 backdrop-blur-lg rounded-xl border border-green-500/30 p-6">
+                <div class="bg-gray-900 rounded-xl border border-green-500 p-6">
                     <div class="text-3xl font-bold">{{ $loans->whereNotNull('returned_at')->count() }}</div>
                     <div class="text-gray-300 mt-2">{{ __('Returned') }}</div>
                 </div>
-                <div class="bg-red-500/20 backdrop-blur-lg rounded-xl border border-red-500/30 p-6">
+                <div class="bg-gray-900 rounded-xl border border-red-500 p-6">
                     <div class="text-3xl font-bold">
                         {{ $loans->filter(function($loan) {
                             return !$loan->returned_at && $loan->created_at->addDays(14)->isPast();
@@ -166,12 +166,13 @@
         const TRANSLATIONS = {!! json_encode(__('translations')) !!};
         
         function switchLanguage(lang) {
-            fetch('/locale/' + lang, {
+            fetch('/language', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
+                },
+                body: JSON.stringify({ locale: lang })
             }).then(() => {
                 location.reload();
             });

@@ -6,9 +6,9 @@
     <title>{{ __('Edit User') }} - {{ $user->name }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 min-h-screen text-white">
+<body class="bg-black min-h-screen text-white">
     <!-- Navigation -->
-    <nav class="bg-black/30 backdrop-blur-lg border-b border-white/10 sticky top-0 z-50">
+    <nav class="bg-black border-b border-purple-500 sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
                 <a href="{{ url('/') }}" class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent hover:from-purple-300 hover:to-pink-300 transition-all">
@@ -42,7 +42,7 @@
                 ✏️ {{ __('Edit User') }}
             </h1>
 
-            <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-8">
+            <div class="bg-gray-900 rounded-2xl border border-gray-800 p-8">
                 <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
                     @csrf
                     @method('PUT')
@@ -53,7 +53,7 @@
                             {{ __('Name') }}
                         </label>
                         <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}" required
-                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors">
+                            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors">
                         @error('name')
                             <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
                         @enderror
@@ -65,7 +65,7 @@
                             {{ __('Email') }}
                         </label>
                         <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" required
-                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors">
+                            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors">
                         @error('email')
                             <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
                         @enderror
@@ -77,7 +77,7 @@
                             {{ __('Role') }}
                         </label>
                         <select id="role" name="role" required
-                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-purple-500 transition-colors">
+                            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-purple-500 transition-colors">
                             <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>🛡️ {{ __('Administrator') }}</option>
                             <option value="user" {{ $user->role === 'user' ? 'selected' : '' }}>👤 {{ __('User') }}</option>
                             <option value="guest" {{ $user->role === 'guest' ? 'selected' : '' }}>👁️ {{ __('Guest') }}</option>
@@ -93,7 +93,7 @@
                             {{ __('New Password') }} <span class="text-gray-400 font-normal">({{ __('Leave empty to keep current') }})</span>
                         </label>
                         <input type="password" id="password" name="password"
-                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors">
+                            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors">
                         @error('password')
                             <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
                         @enderror
@@ -105,7 +105,7 @@
                             {{ __('Confirm Password') }}
                         </label>
                         <input type="password" id="password_confirmation" name="password_confirmation"
-                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors">
+                            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors">
                     </div>
 
                     <!-- Buttons -->
@@ -113,7 +113,7 @@
                         <button type="submit" class="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105">
                             💾 {{ __('Save Changes') }}
                         </button>
-                        <a href="{{ route('admin.users') }}" class="flex-1 bg-white/5 hover:bg-white/10 text-white font-bold py-3 px-6 rounded-lg transition-all text-center">
+                        <a href="{{ route('admin.users') }}" class="flex-1 bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition-all text-center">
                             {{ __('Cancel') }}
                         </a>
                     </div>
@@ -126,12 +126,13 @@
         const TRANSLATIONS = {!! json_encode(__('translations')) !!};
         
         function switchLanguage(lang) {
-            fetch('/locale/' + lang, {
+            fetch('/language', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
+                },
+                body: JSON.stringify({ locale: lang })
             }).then(() => {
                 location.reload();
             });
