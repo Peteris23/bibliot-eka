@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -40,6 +41,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
     Route::post('/books', [BookController::class, 'store'])->name('books.store');
     Route::delete('/books/{book}', [BookController::class, 'destroy'])->name('books.destroy');
+    
+    // Admin panel routes
+    Route::get('/admin/loans', [AdminController::class, 'showLoans'])->name('admin.loans');
+    Route::get('/admin/users', [AdminController::class, 'showUsers'])->name('admin.users');
+    Route::get('/admin/users/{id}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
+    Route::put('/admin/users/{id}', [AdminController::class, 'updateUser'])->name('admin.users.update');
+    Route::delete('/admin/users/{id}', [AdminController::class, 'deleteUser'])->name('admin.users.delete');
 });
 
 // Public routes

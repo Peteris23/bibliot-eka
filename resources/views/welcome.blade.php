@@ -31,6 +31,7 @@
                         <a href="/search" class="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors">{{ $locale === 'lv' ? 'Meklēt' : 'Search' }}</a>
                         @if(auth()->user()->isAdmin())
                         <a href="{{ url('/books/create') }}" class="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors">{{ $locale === 'lv' ? 'Pievienot Grāmatas' : 'Add Books' }}</a>
+                        <a href="{{ url('/admin/loans') }}" class="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors">🛡️ {{ $locale === 'lv' ? 'Admin Panelis' : 'Admin Panel' }}</a>
                         @endif
                         <a href="/about" class="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors">{{ $locale === 'lv' ? 'Par Mums' : 'About' }}</a>
                         
