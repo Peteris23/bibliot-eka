@@ -54,4 +54,20 @@ class User extends Authenticatable
     {
         return $this->role === 'admin';
     }
+
+    /**
+     * Check if the user is a regular user.
+     */
+    public function isUser(): bool
+    {
+        return $this->role === 'user';
+    }
+
+    /**
+     * Check if the current visitor is a guest (not authenticated).
+     */
+    public static function isGuest(): bool
+    {
+        return !auth()->check();
+    }
 }
