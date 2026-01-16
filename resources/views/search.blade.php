@@ -83,7 +83,7 @@
         // Ielādēt visas grāmatas lapas ielādes laikā
         async function loadAllBooks() {
             try {
-                const response = await fetch(`${API_BASE}/books/search`);
+                const response = await fetch(`${API_BASE}/books`);
                 const books = await response.json();
                 displayBooks(books, allBooksContainer);
             } catch (error) {
