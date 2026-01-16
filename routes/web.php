@@ -21,6 +21,10 @@ Route::get('/library', function () {
     return view('library');
 })->middleware('auth')->name('library');
 
+Route::get('/profile', function () {
+    return view('profile');
+})->middleware('auth')->name('profile');
+
 Route::get('/contacts', function () {
     return view('contacts');
 })->middleware('auth')->name('contacts');

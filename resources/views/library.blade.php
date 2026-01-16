@@ -29,14 +29,14 @@
                     <a href="{{ route('contacts') }}" class="text-blue-600 hover:text-blue-800">{{ t('Contacts', $translations) }}</a>
                     
                     <!-- User Info -->
-                    <div class="flex items-center bg-gray-100 px-3 py-2 rounded-md">
+                    <a href="{{ route('profile') }}" class="flex items-center bg-gray-100 px-3 py-2 rounded-md hover:bg-gray-200 transition-colors">
                         <span class="text-gray-700 text-sm font-medium">
                             👤 {{ auth()->user()->name }}
                             @if(auth()->user()->isAdmin())
                                 <span class="ml-1 bg-purple-100 text-purple-800 text-xs px-2 py-0.5 rounded">Admin</span>
                             @endif
                         </span>
-                    </div>
+                    </a>
                     
                     <!-- Language Switcher -->
                     <form method="POST" action="{{ route('language.switch') }}" class="inline">
