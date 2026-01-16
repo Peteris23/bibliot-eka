@@ -41,9 +41,9 @@
                     <!-- Language Switcher -->
                     <form method="POST" action="{{ route('language.switch') }}" class="inline">
                         @csrf
-                        <input type="hidden" name="locale" value="{{ app()->getLocale() === 'lv' ? 'en' : 'lv' }}">
+                        <input type="hidden" name="locale" value="{{ $locale === 'lv' ? 'en' : 'lv' }}">
                         <button type="submit" class="bg-gray-200 text-gray-700 px-3 py-2 rounded-md hover:bg-gray-300 text-sm">
-                            {{ app()->getLocale() === 'lv' ? '🇬🇧 EN' : '🇱🇻 LV' }}
+                            {{ $locale === 'lv' ? '🇬🇧 EN' : '🇱🇻 LV' }}
                         </button>
                     </form>
                     
