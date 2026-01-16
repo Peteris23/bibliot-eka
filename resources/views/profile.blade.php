@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $locale === 'lv' ? 'Profils' : 'Profile' }} - {{ t('Library Management System', $translations) }}</title>
+    <title>{{ t('Profile', $translations) }} - {{ t('Library Management System', $translations) }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 min-h-screen">
@@ -69,28 +69,28 @@
                         <p class="text-gray-600 text-sm">{{ auth()->user()->email }}</p>
                         @if(auth()->user()->isAdmin())
                             <span class="inline-block mt-2 bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">
-                                🛡️ {{ $locale === 'lv' ? 'Administrators' : 'Administrator' }}
+                                🛡️ {{ t('Administrator', $translations) }}
                             </span>
                         @else
                             <span class="inline-block mt-2 bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">
-                                📚 {{ $locale === 'lv' ? 'Lietotājs' : 'User' }}
+                                📚 {{ t('User', $translations) }}
                             </span>
                         @endif
                     </div>
                     
                     <div class="border-t pt-4">
-                        <h3 class="font-semibold text-gray-700 mb-3">{{ $locale === 'lv' ? 'Konta Informācija' : 'Account Information' }}</h3>
+                        <h3 class="font-semibold text-gray-700 mb-3">{{ t('Account Information', $translations) }}</h3>
                         <div class="space-y-2 text-sm">
                             <div class="flex justify-between">
-                                <span class="text-gray-600">{{ $locale === 'lv' ? 'Reģistrēts' : 'Member Since' }}:</span>
+                                <span class="text-gray-600">{{ t('Member Since', $translations) }}:</span>
                                 <span class="font-medium">{{ auth()->user()->created_at->format('Y-m-d') }}</span>
                             </div>
                             <div class="flex justify-between">
-                                <span class="text-gray-600">{{ $locale === 'lv' ? 'Kopā Aizņēmumi' : 'Total Loans' }}:</span>
+                                <span class="text-gray-600">{{ t('Total Loans', $translations) }}:</span>
                                 <span class="font-medium" id="totalLoans">-</span>
                             </div>
                             <div class="flex justify-between">
-                                <span class="text-gray-600">{{ $locale === 'lv' ? 'Aktīvie Aizņēmumi' : 'Active Loans' }}:</span>
+                                <span class="text-gray-600">{{ t('Active Loans', $translations) }}:</span>
                                 <span class="font-medium text-blue-600" id="activeLoans">-</span>
                             </div>
                         </div>
@@ -101,21 +101,21 @@
             <!-- Loan History -->
             <div class="md:col-span-2">
                 <div class="bg-white rounded-lg shadow-md p-6">
-                    <h2 class="text-xl font-semibold mb-4">{{ $locale === 'lv' ? 'Mani Aizņēmumi' : 'My Loans' }}</h2>
+                    <h2 class="text-xl font-semibold mb-4">{{ t('My Loans', $translations) }}</h2>
                     
                     <!-- Active Loans -->
                     <div class="mb-6">
-                        <h3 class="text-lg font-medium text-blue-600 mb-3">{{ $locale === 'lv' ? '📖 Aktīvie Aizņēmumi' : '📖 Active Loans' }}</h3>
+                        <h3 class="text-lg font-medium text-blue-600 mb-3">📖 {{ t('Active Loans', $translations) }}</h3>
                         <div id="activeLoansContainer" class="space-y-3">
-                            <p class="text-gray-500 text-center py-4">{{ $locale === 'lv' ? 'Ielādē...' : 'Loading...' }}</p>
+                            <p class="text-gray-500 text-center py-4">{{ t('Loading...', $translations) }}</p>
                         </div>
                     </div>
 
                     <!-- Loan History -->
                     <div>
-                        <h3 class="text-lg font-medium text-gray-600 mb-3">{{ $locale === 'lv' ? '📚 Aizņēmumu Vēsture' : '📚 Loan History' }}</h3>
+                        <h3 class="text-lg font-medium text-gray-600 mb-3">📚 {{ t('Loan History', $translations) }}</h3>
                         <div id="loanHistoryContainer" class="space-y-3">
-                            <p class="text-gray-500 text-center py-4">{{ $locale === 'lv' ? 'Ielādē...' : 'Loading...' }}</p>
+                            <p class="text-gray-500 text-center py-4">{{ t('Loading...', $translations) }}</p>
                         </div>
                     </div>
                 </div>
@@ -126,6 +126,7 @@
     <script>
         const API_BASE = '/api';
         const LOCALE = '{{ $locale }}';
+        const TRANSLATIONS = @json($translations);
 
         async function loadProfile() {
             try {
@@ -165,7 +166,7 @@
             const container = document.getElementById(containerId);
             
             if (loans.length === 0) {
-                container.innerHTML = `<p class="text-gray-500 text-center py-4">${LOCALE === 'lv' ? 'Nav aizņēmumu' : 'No loans'}</p>`;
+                container.innerHTML = `<p class="text-gray-500 text-center py-4">${TRANSLATIONS['No loans']}</p>`;
                 return;
             }
 
@@ -182,20 +183,20 @@
                         <div class="flex justify-between items-start">
                             <div class="flex-1">
                                 <h4 class="font-semibold text-gray-800">${book.title}</h4>
-                                <p class="text-sm text-gray-600">${LOCALE === 'lv' ? 'Autors' : 'Author'}: ${book.author}</p>
+                                <p class="text-sm text-gray-600">${TRANSLATIONS['Author']}: ${book.author}</p>
                                 <p class="text-sm text-gray-600">ISBN: ${book.isbn}</p>
                             </div>
                             ${isActive ? `
                                 <button onclick="returnBook(${book.id})" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm">
-                                    ${LOCALE === 'lv' ? 'Atgriezt' : 'Return'}
+                                    ${TRANSLATIONS['Return']}
                                 </button>
                             ` : ''}
                         </div>
                         <div class="mt-3 text-xs text-gray-500 flex justify-between">
-                            <span>📅 ${LOCALE === 'lv' ? 'Izņemts' : 'Loaned'}: ${loanDate}</span>
+                            <span>📅 ${TRANSLATIONS['Loaned']}: ${loanDate}</span>
                             ${returnDate ? 
-                                `<span>✅ ${LOCALE === 'lv' ? 'Atgriezts' : 'Returned'}: ${returnDate}</span>` :
-                                `<span class="${daysAgo > 14 ? 'text-red-600 font-semibold' : ''}">${daysAgo} ${LOCALE === 'lv' ? 'dienas' : 'days'}</span>`
+                                `<span>✅ ${TRANSLATIONS['Returned']}: ${returnDate}</span>` :
+                                `<span class="${daysAgo > 14 ? 'text-red-600 font-semibold' : ''}">${daysAgo} ${TRANSLATIONS['days']}</span>`
                             }
                         </div>
                     </div>
@@ -210,7 +211,7 @@
 
                 const loan = loans.find(l => l.book_id === bookId && !l.return_date);
                 if (!loan) {
-                    alert(LOCALE === 'lv' ? 'Nav atrasts aktīvs aizņēmums' : 'No active loan found');
+                    alert(TRANSLATIONS['No active loan found']);
                     return;
                 }
 
@@ -224,14 +225,14 @@
                 });
 
                 if (response.ok) {
-                    alert(LOCALE === 'lv' ? 'Grāmata veiksmīgi atgriezta!' : 'Book returned successfully!');
+                    alert(TRANSLATIONS['Book returned successfully!']);
                     loadProfile();
                 } else {
-                    alert(LOCALE === 'lv' ? 'Kļūda atgriežot grāmatu' : 'Error returning book');
+                    alert(TRANSLATIONS['Error returning book']);
                 }
             } catch (error) {
                 console.error('Error returning book:', error);
-                alert(LOCALE === 'lv' ? 'Kļūda atgriežot grāmatu' : 'Error returning book');
+                alert(TRANSLATIONS['Error returning book']);
             }
         }
 

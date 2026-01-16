@@ -35,5 +35,22 @@
     "History": "Vēsture",
     "Self-Help": "Pašpalīdzība",
     "Children": "Bērnu",
-    "Other": "Cits"
+    "Other": "Cits",
+    "Profile": "Profils",
+    "Administrator": "Administrators",
+    "User": "Lietotājs",
+    "Account Information": "Konta Informācija",
+    "Member Since": "Reģistrēts",
+    "Total Loans": "Kopā Aizņēmumi",
+    "Active Loans": "Aktīvie Aizņēmumi",
+    "My Loans": "Mani Aizņēmumi",
+    "Loan History": "Aizņēmumu Vēsture",
+    "Loading...": "Ielādē...",
+    "No loans": "Nav aizņēmumu",
+    "Loaned": "Izņemts",
+    "Returned": "Atgriezts",
+    "days": "dienas",
+    "No active loan found": "Nav atrasts aktīvs aizņēmums",
+    "Book returned successfully!": "Grāmata veiksmīgi atgriezta!",
+    "Error returning book": "Kļūda atgriežot grāmatu"
 }

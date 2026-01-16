@@ -35,5 +35,22 @@
     "History": "History",
     "Self-Help": "Self-Help",
     "Children": "Children",
-    "Other": "Other"
+    "Other": "Other",
+    "Profile": "Profile",
+    "Administrator": "Administrator",
+    "User": "User",
+    "Account Information": "Account Information",
+    "Member Since": "Member Since",
+    "Total Loans": "Total Loans",
+    "Active Loans": "Active Loans",
+    "My Loans": "My Loans",
+    "Loan History": "Loan History",
+    "Loading...": "Loading...",
+    "No loans": "No loans",
+    "Loaned": "Loaned",
+    "Returned": "Returned",
+    "days": "days",
+    "No active loan found": "No active loan found",
+    "Book returned successfully!": "Book returned successfully!",
+    "Error returning book": "Error returning book"
 }
