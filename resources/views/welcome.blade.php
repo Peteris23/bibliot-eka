@@ -28,7 +28,6 @@
                     
                     @auth
                         {{-- Authenticated users (Admin or User) --}}
-                        <a href="{{ route('library') }}" class="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors">{{ $locale === 'lv' ? 'Bibliotēka' : 'Library' }}</a>
                         <a href="/search" class="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors">{{ $locale === 'lv' ? 'Meklēt' : 'Search' }}</a>
                         @if(auth()->user()->isAdmin())
                         <a href="{{ url('/books/create') }}" class="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors">{{ $locale === 'lv' ? 'Pievienot Grāmatas' : 'Add Books' }}</a>
