@@ -2395,3 +2395,12 @@ Did you mean one of these?
 #14 C:/Users/Darkwizard/Documents/bibliot-eka/artisan(16): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
 #15 {main}
 "} 
+[2026-01-16 09:03:22] local.ERROR: Command "save" is not defined. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"save\" is not defined. at /home/darkwizard/bibliot-eka/vendor/symfony/console/Application.php:759)
+[stacktrace]
+#0 /home/darkwizard/bibliot-eka/vendor/symfony/console/Application.php(298): Symfony\\Component\\Console\\Application->find('save')
+#1 /home/darkwizard/bibliot-eka/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#2 /home/darkwizard/bibliot-eka/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /home/darkwizard/bibliot-eka/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /home/darkwizard/bibliot-eka/artisan(16): Illuminate\\Foundation\\Application->handleCommand(Object(Symfony\\Component\\Console\\Input\\ArgvInput))
+#5 {main}
+"} 

@@ -42,11 +42,7 @@
                         </button>
                     </form>
                     
-                    @auth
-                        <a href="{{ route('library') }}" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors">{{ $locale === 'lv' ? 'Bibliotēka' : 'Library' }}</a>
-                    @else
-                        <a href="{{ route('login') }}" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors">{{ $locale === 'lv' ? 'Ieiet' : 'Login' }}</a>
-                    @endauth
+                    <a href="{{ route('login') }}" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors">{{ $locale === 'lv' ? 'Ieiet' : 'Login' }}</a>
                 </div>
             </div>
         </div>
