@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $locale === 'lv' ? 'Biblioteka - Tava Digitālā Bibliotēka' : 'Library - Your Digital Library' }}</title>
+    <title>{{ __('Library Management System') }}</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
@@ -24,42 +24,42 @@
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-purple-400">Biblioteka</h1>
                 <div class="flex items-center space-x-4">
-                    <a href="/" class="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors">{{ $locale === 'lv' ? 'Sākums' : 'Home' }}</a>
+                    <a href="/" class="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors">{{ __('Home') }}</a>
                     
                     @auth
                         {{-- Authenticated users (Admin or User) --}}
-                        <a href="/search" class="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors">{{ $locale === 'lv' ? 'Meklēt' : 'Search' }}</a>
+                        <a href="/search" class="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors">{{ __('Search') }}</a>
                         @if(auth()->user()->isAdmin())
-                        <a href="{{ url('/books/create') }}" class="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors">{{ $locale === 'lv' ? 'Pievienot Grāmatas' : 'Add Books' }}</a>
-                        <a href="{{ url('/admin/loans') }}" class="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors">🛡️ {{ $locale === 'lv' ? 'Admin Panelis' : 'Admin Panel' }}</a>
+                        <a href="{{ url('/books/create') }}" class="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors">{{ __('Add Books') }}</a>
+                        <a href="{{ url('/admin/loans') }}" class="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors">🛡️ {{ __('Admin Panel') }}</a>
                         @endif
-                        <a href="/about" class="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors">{{ $locale === 'lv' ? 'Par Mums' : 'About' }}</a>
+                        <a href="/about" class="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors">{{ __('About') }}</a>
                         
                         {{-- User info badge --}}
                         <span class="text-gray-400 text-xs px-2 py-1 bg-gray-800 rounded">
                             @if(auth()->user()->isAdmin())
                                 🛡️ Admin
                             @else
-                                👤 {{ $locale === 'lv' ? 'Lietotājs' : 'User' }}
+                                👤 {{ __('User') }}
                             @endif
                         </span>
                     @else
                         {{-- Guest users (not authenticated) --}}
-                        <a href="/search" class="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors">{{ $locale === 'lv' ? 'Meklēt' : 'Search' }}</a>
-                        <a href="/about" class="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors">{{ $locale === 'lv' ? 'Par Mums' : 'About' }}</a>
+                        <a href="/search" class="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors">{{ __('Search') }}</a>
+                        <a href="/about" class="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors">{{ __('About') }}</a>
                         
                         {{-- Guest badge --}}
                         <span class="text-gray-500 text-xs px-2 py-1 bg-gray-800 rounded">
-                            👁️ {{ $locale === 'lv' ? 'Viesis' : 'Guest' }}
+                            👁️ {{ __('Guest') }}
                         </span>
                     @endauth
                     
                     <!-- Language Switcher -->
                     <form method="POST" action="{{ route('language.switch') }}" class="inline">
                         @csrf
-                        <input type="hidden" name="locale" value="{{ $locale === 'lv' ? 'en' : 'lv' }}">
+                        <input type="hidden" name="locale" value="{{ app()->getLocale() === 'lv' ? 'en' : 'lv' }}">
                         <button type="submit" class="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors">
-                            {{ $locale === 'lv' ? '🇬🇧 EN' : '🇱🇻 LV' }}
+                            {{ app()->getLocale() === 'lv' ? '🇬🇧 EN' : '🇱🇻 LV' }}
                         </button>
                     </form>
                     
@@ -67,11 +67,11 @@
                         <form method="POST" action="{{ route('logout') }}" class="inline">
                             @csrf
                             <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors">
-                                {{ $locale === 'lv' ? 'Iziet' : 'Logout' }}
+                                {{ __('Logout') }}
                             </button>
                         </form>
                     @else
-                        <a href="{{ route('login') }}" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors">{{ $locale === 'lv' ? 'Ieiet' : 'Login' }}</a>
+                        <a href="{{ route('login') }}" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors">{{ __('Login') }}</a>
                     @endauth
                 </div>
             </div>
